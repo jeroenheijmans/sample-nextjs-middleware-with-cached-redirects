@@ -12,8 +12,12 @@ export default function Home() {
         </p>
         <h2>Testable links</h2>
         <p>Middle-click to open links in a new tab.</p>
-        <table className="prose-th:text-left">
-          <thead>
+        <table
+          className="
+          prose-th:border-neutral-400 prose-th:border prose-th:px-2 prose-th:text-left 
+          prose-td:border-neutral-400 prose-td:border prose-td:px-2"
+        >
+          <thead className="bg-neutral-300">
             <tr>
               <th>Link</th>
               <th>Expected Status</th>
@@ -23,12 +27,17 @@ export default function Home() {
           </thead>
           <tbody>
             <tr>
+              <th className="bg-neutral-300/50 text-lg pt-2" colSpan={4}>
+                Plain links, no redirects expected
+              </th>
+            </tr>
+            <tr>
               <td>
                 <Link href="/">/</Link>
               </td>
               <td>200 ✅</td>
               <td>/</td>
-              <td>No redirects involved</td>
+              <td></td>
             </tr>
             <tr>
               <td>
@@ -36,7 +45,7 @@ export default function Home() {
               </td>
               <td>200 ✅</td>
               <td>/manage</td>
-              <td>No redirects involved</td>
+              <td></td>
             </tr>
             <tr>
               <td>
@@ -44,7 +53,7 @@ export default function Home() {
               </td>
               <td>200 ✅</td>
               <td>/about</td>
-              <td>No redirects involved</td>
+              <td></td>
             </tr>
             <tr>
               <td>
@@ -52,7 +61,7 @@ export default function Home() {
               </td>
               <td>404 ❌</td>
               <td>/bad-link</td>
-              <td>No redirects involved but link is dead</td>
+              <td>Target link is dead (will 404)</td>
             </tr>
             <tr>
               <td>
@@ -60,27 +69,84 @@ export default function Home() {
               </td>
               <td>404 ❌</td>
               <td>/some/deep/bad-link</td>
-              <td>No redirects involved but link is dead</td>
+              <td>Target link is dead (will 404)</td>
             </tr>
             <tr>
               <td>
-                <Link href="/nextjs-default-redirection-example-1">
-                  /nextjs-default-redirection-example-1
-                </Link>
+                <Link href="https://example.com">https://example.com</Link>
+              </td>
+              <td>200 ✅</td>
+              <td>⚠️ https://example.com</td>
+              <td>Links to external website with full URL.</td>
+            </tr>
+            <tr>
+              <th className="bg-neutral-300/50 text-lg pt-2" colSpan={4}>
+                Redirects in next.config.mjs
+              </th>
+            </tr>
+            <tr>
+              <td>
+                <Link href="/nextjs-config-mjs-1">/nextjs-config-mjs-1</Link>
               </td>
               <td>307 ⏩ 200 ✅</td>
               <td>/</td>
-              <td>Redirect in next.config.mjs</td>
+              <td></td>
             </tr>
             <tr>
               <td>
-                <Link href="/nextjs-default-redirection-example-2">
-                  /nextjs-default-redirection-example-2
-                </Link>
+                <Link href="/nextjs-config-mjs-2">/nextjs-config-mjs-2</Link>
               </td>
               <td>307 ⏩ 404 ❌</td>
               <td>/some-bad-url</td>
-              <td>Redirect in next.config.mjs</td>
+              <td>Target link is dead (will 404)</td>
+            </tr>
+            <tr>
+              <td>
+                <Link href="/nextjs-config-mjs-3">/nextjs-config-mjs-3</Link>
+              </td>
+              <td>200 ✅</td>
+              <td>⚠️ https://example.com</td>
+              <td>Links to external website with full URL.</td>
+            </tr>
+            <tr>
+              <th className="bg-neutral-300/50 text-lg pt-2" colSpan={4}>
+                Middleware will redirect with hardcoded list
+              </th>
+            </tr>
+            <tr>
+              <td>
+                <Link href="/middleware-hard-coded-1">
+                  /middleware-hard-coded-1
+                </Link>
+              </td>
+              <td>307 ⏩ 200 ✅</td>
+              <td>/manage</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <Link href="/middleware-hard-coded-2">
+                  /middleware-hard-coded-2
+                </Link>
+              </td>
+              <td>307 ⏩ 200 ✅</td>
+              <td>/about</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <Link href="/middleware-hard-coded-3">
+                  /middleware-hard-coded-3
+                </Link>
+              </td>
+              <td>200 ✅</td>
+              <td>⚠️ https://example.com</td>
+              <td>Links to external website with full URL.</td>
+            </tr>
+            <tr>
+              <th className="bg-neutral-300/50 text-lg pt-2" colSpan={4}>
+                Middleware will redirect with cached configuration from upstream
+              </th>
             </tr>
             <tr>
               <td>
@@ -88,15 +154,7 @@ export default function Home() {
               </td>
               <td>307 ⏩ 200 ✅</td>
               <td>/manage</td>
-              <td>Redirect from configuration and cache</td>
-            </tr>
-            <tr>
-              <td>
-                <Link href="/s/mng">/s/mng</Link>
-              </td>
-              <td>307 ⏩ 200 ✅</td>
-              <td>/manage</td>
-              <td>Redirect from configuration and cache</td>
+              <td>Redirect in middleware via cached list</td>
             </tr>
             <tr>
               <td>
@@ -104,7 +162,25 @@ export default function Home() {
               </td>
               <td>307 ⏩ 200 ✅</td>
               <td>/</td>
-              <td>Redirect from configuration and cache</td>
+              <td>Redirect in middleware via cached list</td>
+            </tr>
+            <tr>
+              <td>
+                <Link href="/s/mng">/s/mng</Link>
+              </td>
+              <td>307 ⏩ 200 ✅</td>
+              <td>/manage</td>
+              <td>Redirect in middleware via cached list</td>
+            </tr>
+            <tr>
+              <td>
+                <Link href="/s/some/deep/example-link">
+                  /s/some/deep/example-link
+                </Link>
+              </td>
+              <td>307 ⏩ 200 ✅</td>
+              <td>/about</td>
+              <td>Redirect in middleware via cached list</td>
             </tr>
           </tbody>
         </table>

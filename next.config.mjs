@@ -4,13 +4,18 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/nextjs-default-redirection-example-1",
+        source: "/nextjs-config-mjs-1",
         destination: "/",
         permanent: false,
       },
       {
-        source: "/nextjs-default-redirection-example-2",
+        source: "/nextjs-config-mjs-2",
         destination: "/some-bad-url",
+        permanent: false,
+      },
+      {
+        source: "/nextjs-config-mjs-3",
+        destination: "https://example.com",
         permanent: false,
       },
     ];
