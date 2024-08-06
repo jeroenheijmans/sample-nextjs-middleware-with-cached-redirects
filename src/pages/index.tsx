@@ -10,8 +10,6 @@ export default function Home() {
           used to steer NextJS redirects. The middleware uses a cached list of
           redirects, to simulate them coming from some upstream server.
         </p>
-        <h2>Testable links</h2>
-        <p>Middle-click to open links in a new tab.</p>
         <table
           className="
           prose-th:border-neutral-400 prose-th:border prose-th:px-2 prose-th:text-left 
@@ -104,7 +102,7 @@ export default function Home() {
               <td>
                 <Link href="/nextjs-config-mjs-3">/nextjs-config-mjs-3</Link>
               </td>
-              <td>200 ✅</td>
+              <td>307 ⏩ 200 ✅</td>
               <td>⚠️ https://example.com</td>
               <td>Links to external website with full URL.</td>
             </tr>
@@ -139,7 +137,7 @@ export default function Home() {
                   /middleware-hard-coded-3
                 </Link>
               </td>
-              <td>200 ✅</td>
+              <td>307 ⏩ 200 ✅</td>
               <td>⚠️ https://example.com</td>
               <td>Links to external website with full URL.</td>
             </tr>
@@ -181,6 +179,22 @@ export default function Home() {
               <td>307 ⏩ 200 ✅</td>
               <td>/about</td>
               <td>Redirect in middleware via cached list</td>
+            </tr>
+            <tr>
+              <td>
+                <Link href="/s/some/bad/link">/s/some/bad/link</Link>
+              </td>
+              <td>307 ⏩ 404 ❌</td>
+              <td>/non-existent/target</td>
+              <td>Target link is dead (will 404)</td>
+            </tr>
+            <tr>
+              <td>
+                <Link href="/s/to-external-site">/s/to-external-site</Link>
+              </td>
+              <td>307 ⏩ 200 ✅</td>
+              <td>⚠️ https://example.com</td>
+              <td>Links to external website with full URL.</td>
             </tr>
           </tbody>
         </table>
